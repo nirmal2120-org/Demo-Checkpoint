@@ -1,0 +1,34 @@
+# example pipeline for Polaris scans using the Black Duck Security Scan Extension for ADO
+# https://marketplace.visualstudio.com/items?itemName=blackduck.blackduck-security-scan
+trigger:
+- main
+- develop
+pool:
+  vmImage: ubuntu-latest
+variables:
+  - group: NIRMAL_SCA
+steps:
+- task: JavaToolInstaller@0
+  displayName: 'Install JDK'
+  inputs:
+    versionSpec: 17
+    jdkArchitectureOption: x64
+    jdkSourceOption: PreInstalled
+- task: Maven@4
+  displayName: 'Maven Build'
+  inputs:
+    options: '-B -DskipTests'
+- task: BlackDuckSecurityScan@2
+  displayName: 'Polaris Scan'
+  inputs:
+    polaris_server_url: $(POLARIS_SERVER_URL)
+    polaris_access_token: $(POLARIS_ACCESS_TOKEN)
+    polaris_assessment_types: 'SAST,SCA'
+    polaris_application_name: chuckaude-$(Build.Repository.Name)
+    polaris_prcomment_enabled: true
+    polaris_reports_sarif_create: true
+    coverity_build_command: mvn -B -DskipTests package
+    coverity_clean_command: mvn -B clean
+    azure_token: $(System.AccessToken)
+    include_diagnostics: false
+    mark_build_status: 'SucceededWithIssues'
