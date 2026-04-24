@@ -24,11 +24,8 @@ steps:
     polaris_server_url: $(POLARIS_SERVER_URL)
     polaris_access_token: $(POLARIS_ACCESS_TOKEN)
     polaris_assessment_types: 'SAST,SCA'
-    polaris_application_name: chuckaude-$(Build.Repository.Name)
-    polaris_prcomment_enabled: true
-    polaris_reports_sarif_create: true
+    polaris_application_name: Nirmal_SCM
     coverity_build_command: mvn -B -DskipTests package
     coverity_clean_command: mvn -B clean
-    azure_token: $(System.AccessToken)
     include_diagnostics: false
     mark_build_status: 'SucceededWithIssues'
