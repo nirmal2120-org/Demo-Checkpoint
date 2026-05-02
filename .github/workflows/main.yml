@@ -54,7 +54,7 @@ jobs:
           ./bridge-cli-bundle-linux64/bridge-cli \
             --stage polaris \
             polaris.serverUrl=$POLARIS_SERVER_URL \
-            polaris.accessToken=$POLARIS_ACCESSTOKEN \
+            polaris.accessToken=$POLARIS_ACCESS_TOKEN_ \
             polaris.application.name=Nirmal_SCM \
             polaris.project.name=WebGoat \
             polaris.branch.name=Polaris-testing \
