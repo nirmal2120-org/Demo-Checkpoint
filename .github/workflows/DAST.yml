@@ -26,12 +26,14 @@ jobs:
     
 
       - name: Run Polaris DAST Scan
-        env:
-          POLARIS_ACCESS_TOKEN: ${{ secrets.POLARIS_TOKEN }}
+       env:
+          POLARIS_SERVER_URL: ${{ vars.POLARIS_SERVER_URL }}
+          POLARIS_ACCESS_TOKEN: ${{ secrets.POLARIS_ACCESS_TOKEN }}
         run: |
           ./bridge-cli-bundle-linux64/bridge-cli \
             --stage polaris \
             polaris.serverUrl=$POLARIS_SERVER_URL \
+            polaris.accessToken=${{ secrets.POLARIS_TOKEN }} \
             polaris.assessment.types=DAST \
             polaris.application.name="NIRMAL_DAST" \
             polaris.project.name="Test"
