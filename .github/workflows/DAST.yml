@@ -1,0 +1,30 @@
+name: Polaris DAST Scan
+
+on:
+  workflow_dispatch:
+  # optional automatic trigger
+  # schedule:
+  #   - cron: '0 2 * * *'
+
+jobs:
+  dast-scan:
+    runs-on: ubuntu-latest
+    # use self-hosted if app is internal
+    # runs-on: self-hosted
+
+    steps:
+      - name: Download Bridge CLI
+        run: |
+          curl -L -o bridge-cli.zip https://repo.blackduck.com/bds-integrations-release/bridge-cli/latest/bridge-cli-linux64.zip
+          unzip bridge-cli.zip
+          chmod +x bridge-cli
+
+      - name: Run Polaris DAST Scan
+        env:
+          POLARIS_ACCESS_TOKEN: ${{ secrets.POLARIS_TOKEN }}
+        run: |
+          ./bridge-cli --stage polaris \
+            polaris.serverUrl=$POLARIS_SERVER_URL \
+            polaris.assessment.types=DAST \
+            polaris.application.name="NIRMAL_DAST" \
+            polaris.project.name="Test"
