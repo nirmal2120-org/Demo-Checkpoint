@@ -13,11 +13,17 @@ jobs:
     # runs-on: self-hosted
 
     steps:
+
+      # --------------------------------------------------
+      # Download Black Duck Bridge CLI
+      # --------------------------------------------------
       - name: Download Bridge CLI
         run: |
-          curl -L -o bridge-cli.zip https://repo.blackduck.com/bds-integrations-release/bridge-cli/latest/bridge-cli-linux64.zip
-          unzip bridge-cli.zip
-          chmod +x bridge-cli
+          curl -fLsS -o bridge.zip \
+            https://repo.blackduck.com/bds-integrations-release/com/blackduck/integration/bridge/binaries/bridge-cli-bundle/latest/bridge-cli-bundle-linux64.zip
+          unzip -q bridge.zip
+          chmod +x bridge-cli-bundle-linux64/bridge-cli
+    
 
       - name: Run Polaris DAST Scan
         env:
