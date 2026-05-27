@@ -4,7 +4,7 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 variables:
-- group: SCA_Evan
+- group: NIRMAL_SCA
 steps:
 - task: JavaToolInstaller@0
   inputs:
@@ -23,6 +23,6 @@ steps:
   inputs:
     scanType: 'blackducksca'
     blackduckScaUrl: '$(SCAURL)'
-    blackduckScaToken: '$(AccessToken)'
+    blackduckScaToken: '$(BD_TOKEN)'
     blackduckScaWaitForScan: false
     detectArgs: '--detect.project.name=Merganser --detect.project.version.name=main --detect.project.versionphase=DEVELOPMENT --detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING --detect.excluded.detector.types=GIT --detect.blackduck.correlated.scanning.enabled=true'
