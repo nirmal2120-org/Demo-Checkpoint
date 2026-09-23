@@ -15,14 +15,14 @@ steps:
     jdkSourceOption: 'PreInstalled'
   displayName: 'Install Java'
 
-# ✅ Build step (FIXED)
+
 - bash: |
     mvn --version
     java -version
     mvn clean install --no-transfer-progress || true
   displayName: 'Build Project'
 
-# ✅ Black Duck SCA Scan
+
 - task: BlackDuckSecurityScan@2
   inputs:
     scanType: 'blackducksca'
@@ -33,6 +33,3 @@ steps:
       --detect.project.name=Merganser
       --detect.project.version.name=main
       --detect.project.version.phase=DEVELOPMENT
-      --detect.blackduck.signature.scanner.snippet.matching=SNIPPET_MATCHING
-      --detect.excluded.detector.types=GIT
-      --detect.blackduck.correlated.scanning.enabled=true
